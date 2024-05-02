@@ -10,6 +10,7 @@ import { Trash2 } from "lucide-react";
 import deletePostAction from "@/actions/deletePostAction";
 import Image from "next/image";
 import PostOptions from "./PostOptions";
+import { toast } from "sonner";
 
 function Post({ post }: { post: IPostDocument }) {
   const { user } = useUser();
@@ -53,6 +54,11 @@ function Post({ post }: { post: IPostDocument }) {
                 const promise = deletePostAction(post._id);
 
                 //Toast
+                toast.promise(promise, {
+                  loading: "Deleting post...",
+                  success: "Post deleted",
+                  error: "Failed to delete post",
+                });
               }}
             >
               <Trash2 />
